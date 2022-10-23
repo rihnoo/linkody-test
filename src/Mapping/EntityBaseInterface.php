@@ -20,8 +20,7 @@ interface EntityBaseInterface
     /**
      * Set createdAt
      *
-     * @param DateTime $createdAt
      * @return void
      */
-    public function setCreatedAt(DateTime $createdAt): void;
+    public function setCreatedAt(): void;
 }
