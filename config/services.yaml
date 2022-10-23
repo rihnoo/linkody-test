@@ -25,3 +25,4 @@ services:
     App\Service\PageCsvImporter:
         arguments:
             $entityManager: '@doctrine.orm.default_entity_manager'
+            $logger: '@monolog.logger.request'
