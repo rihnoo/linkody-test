@@ -24,11 +24,16 @@ class PageCsvImporter
 
         try {
             foreach ($generator as $item) {
-                $page = new Page();
-                $page->setUrl($item['URL']);
+                if (!filter_var($item['URL'], FILTER_VALIDATE_URL) === false) {
+                    $duplicate = $this->entityManager->getRepository(Page::class)->count(["url" => $item['URL']]);
+                    if ($duplicate == 0) {
+                        $page = new Page();
+                        $page->setUrl($item['URL']);
 
-                $this->entityManager->persist($page);
-                $this->entityManager->flush();
+                        $this->entityManager->persist($page);
+                        $this->entityManager->flush();
+                    }
+                }
             }
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
